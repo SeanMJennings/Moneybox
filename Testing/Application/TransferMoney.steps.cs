@@ -1,6 +1,8 @@
 ﻿using Moneybox.Domain.Entities;
+using Moneybox.Domain.Primitives;
 using Moneybox.Domain.Services;
 using Moq;
+using Shouldly;
 
 namespace Testing.Application;
 
@@ -55,8 +57,7 @@ public partial class TransferMoney : Specification
     {
         var fromAccount = new InMemoryDataRepository([from_account]).GetAccountById(from_account_id);
         var toAccount = new InMemoryDataRepository([to_account]).GetAccountById(to_account_id);
-        
-        Assert.That(fromAccount.Balance, Is.EqualTo(500m));
-        Assert.That(toAccount.Balance, Is.EqualTo(500m));
+        fromAccount.Balance.ShouldBe(Balance.New(500m));
+        toAccount.Balance.ShouldBe(Balance.New(500m));
     }
 }

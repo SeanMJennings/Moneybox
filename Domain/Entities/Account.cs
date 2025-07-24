@@ -4,27 +4,32 @@ namespace Moneybox.Domain.Entities
 {
     public class Account(Guid id, User user, Money Withdrawn, Money PaidIn) : Aggregate(id)
     {
-        private const decimal PayInLimit = 4000m;
+
         public const decimal LowFundsThreshold = 500m;
 
         public User User { get; private set; } = user;
 
-        public decimal Balance => PaidIn - Withdrawn;
+        public Balance Balance { get; private set; }= PaidIn - Withdrawn;
 
         public Money Withdrawn { get; private set; } = Withdrawn;
 
         public Money PaidIn { get; private set; } = PaidIn;
         
-        public void Withdraw(Money amount) => Withdrawn += amount;
-        public void Deposit(Money amount) => PaidIn += amount;
-        public bool WillApproachPayInLimit(Money amount)
+        public void Withdraw(Money amount)
         {
-            var paidIn = PaidIn + amount;
-            return paidIn > PayInLimit || PayInLimit - paidIn < LowFundsThreshold;
+            Withdrawn += amount;
+            Balance = PaidIn - Withdrawn;
         }
-        public bool WillExceedPayInLimit(Money amount)
+
+        public void Deposit(Money amount)
         {
-            return PaidIn + amount > PayInLimit;
+            PaidIn += amount;
+            Balance = PaidIn - Withdrawn;
+        }
+
+        public bool ApproachingPayInLimit()
+        {
+            return Balance.PayInLimit - PaidIn < LowFundsThreshold;
         }
     }
 }

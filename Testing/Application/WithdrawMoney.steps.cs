@@ -1,6 +1,8 @@
 ﻿using Moneybox.Domain.Entities;
+using Moneybox.Domain.Primitives;
 using Moneybox.Domain.Services;
 using Moq;
+using Shouldly;
 
 namespace Testing.Application;
 
@@ -41,6 +43,6 @@ public partial class WithdrawMoney : Specification
     private void withdrawal_is_successful()
     {
         var account = new InMemoryDataRepository([from_account]).GetAccountById(from_account_id);
-        Assert.That(account.Balance, Is.EqualTo(500m));
+        account.Balance.ShouldBe(Balance.New(500m));
     }
 }

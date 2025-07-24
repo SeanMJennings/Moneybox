@@ -9,7 +9,7 @@ public partial class AccountSpecs : Specification
     private Guid id;
     private User user = null!;
     private Account account = null!;
-    private Money PaidIn = Money.Zero;
+    private Money PaidIn = 200m;
     private Money Withdrawn = 100m;
 
     protected override void before_each()
@@ -43,6 +43,6 @@ public partial class AccountSpecs : Specification
 
     private void the_balance_is_calculated_as_difference_between_paidin_and_withdrawal()
     {
-        account.Balance.ShouldBe(-100m);
+        account.Balance.ShouldBe(new Balance(100m));
     }
 }

@@ -7,7 +7,7 @@ public partial class WithdrawMoney
     {
         Given(() => a_from_account_with_balance(100m));
         When(Validating(() => withdrawing(101m)));
-        Then(Informs("Insufficient funds to make withdrawal"));
+        Then(Informs("Insufficient funds"));
     }
 
     [Test]

@@ -8,7 +8,7 @@ public partial class TransferMoney
         Given(() => a_from_account_with_balance(1000m));
         And(() => a_to_account_with_balance(0m));
         When(Validating(() => transferring(1001m)));
-        Then(Informs("Insufficient funds to make transfer"));
+        Then(Informs("Insufficient funds"));
     }
     
     [Test]
