@@ -24,7 +24,24 @@ public partial class AccountSpecs : Specification
     {
         id = Guid.NewGuid();
         user = new User(Guid.NewGuid(), "Jackie Chan", "jackie.chan@gmail.com");
-        
+        PaidIn = 200m;
+        Withdrawn = 100m;
+    }
+    
+    private void negative_balance()
+    {
+        id = Guid.NewGuid();
+        user = new User(Guid.NewGuid(), "Jackie Chan", "jackie.chan@gmail.com");
+        PaidIn = 100m;
+        Withdrawn = 200m;
+    }
+    
+    private void somebody_with_pay_in_limit_exceeded()
+    {
+        id = Guid.NewGuid();
+        user = new User(Guid.NewGuid(), "Jackie Chan", "jackie.chan@gmail.com");
+        PaidIn = 5000m;
+        Withdrawn = 200m;
     }
 
     private void creating_an_account()

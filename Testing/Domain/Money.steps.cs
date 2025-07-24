@@ -3,7 +3,7 @@ using Shouldly;
 
 namespace Testing.Domain;
 
-public partial class MoneySpecsShould : Specification
+public partial class MoneySpecs : Specification
 {
     private const decimal positive_amount = 123.4567m;
     private const decimal negative_amount = -123.4567m;
