@@ -22,7 +22,7 @@ namespace Moneybox.Domain.Entities
             var paidIn = PaidIn + amount;
             return paidIn > PayInLimit || PayInLimit - paidIn < LowFundsThreshold;
         }
-        public bool ExceedsPayInLimit(Money amount)
+        public bool WillExceedPayInLimit(Money amount)
         {
             return PaidIn + amount > PayInLimit;
         }

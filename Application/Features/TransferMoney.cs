@@ -31,7 +31,7 @@ public class TransferMoney(IAmAnAccountRepository AccountRepository, IAmANotific
     private void CheckPayIn(decimal amount, Account to)
     {
         var paidIn = to.PaidIn + amount;
-        if (to.ExceedsPayInLimit(paidIn)) throw new InvalidOperationException("Account pay in limit reached");
+        if (to.WillExceedPayInLimit(paidIn)) throw new InvalidOperationException("Account pay in limit reached");
         if (to.WillApproachPayInLimit(paidIn)) NotificationService.NotifyApproachingPayInLimit(to.User.Email);
     }
         
