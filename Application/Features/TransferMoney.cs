@@ -19,11 +19,9 @@ public class TransferMoney(IAmAnAccountRepository AccountRepository, IAmANotific
         CheckBalance(fromBalance, from.User.Email);
         CheckPayIn(amount, to);
         Transfer(amount, from, to);
-
-        AccountRepository.Update(from);
-        AccountRepository.Update(to);
+        UpdateAccounts(from, to);
     }
-        
+
     private void CheckBalance(decimal fromBalance, Email fromEmail)
     {
         if (fromBalance.IsOverdrawn()) throw new InvalidOperationException("Insufficient funds to make transfer");
@@ -41,5 +39,11 @@ public class TransferMoney(IAmAnAccountRepository AccountRepository, IAmANotific
     {
         from.Withdraw(amount);
         to.Deposit(amount);
+    }
+    
+    private void UpdateAccounts(Account from, Account to)
+    {
+        AccountRepository.Update(from);
+        AccountRepository.Update(to);
     }
 }

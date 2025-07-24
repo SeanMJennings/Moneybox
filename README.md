@@ -24,3 +24,9 @@ As part of this process however, you should look to refactor some of the code in
 Once you have completed test, zip up your solution, excluding any build artifacts to reduce the size, and email it back to our recruitment team.
 
 Good luck!
+
+## Approach Taken
+- Have used test-driven development to implement the WithdrawMoney feature.
+- Have used domain-driven design to create a rich domain model for the Account and User.
+- Have added build pipeline to demonstrate the solution can be built and tested in a CI/CD environment.
+- Lightly renamed the interfaces to aid domain language and clarity.
