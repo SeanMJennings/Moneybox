@@ -6,7 +6,7 @@ namespace Moneybox.Domain.Entities
     {
         public User User { get; private set; } = user;
 
-        public Balance Balance { get; private set; }= PaidIn - Withdrawn;
+        public Balance Balance { get; private set; } = PaidIn - Withdrawn;
 
         public Money Withdrawn { get; private set; } = Withdrawn;
 
