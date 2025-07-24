@@ -22,24 +22,25 @@ namespace Moneybox.Application.Features
             AccountRepository.Update(from);
             AccountRepository.Update(to);
         }
-
+        
+        private void CheckBalance(decimal fromBalance, Account from)
+        {
+            if (fromBalance.IsOverdrawn()) throw new InvalidOperationException("Insufficient funds to make transfer");
+            if (fromBalance.HasLowFunds()) NotificationService.NotifyFundsLow(from.User.Email);
+        }
+        
+        private void CheckPayIn(decimal amount, Account to)
+        {
+            var paidIn = to.PaidIn + amount;
+            if (paidIn > Account.PayInLimit) throw new InvalidOperationException("Account pay in limit reached");
+            if (Account.PayInLimit - paidIn < Account.LowFundsThreshold) NotificationService.NotifyApproachingPayInLimit(to.User.Email);
+        }
+        
         private static void Transfer(decimal amount, Account from, Account to)
         {
             from.Withdraw(amount);
             to.Deposit(amount);
         }
 
-        private void CheckPayIn(decimal amount, Account to)
-        {
-            var paidIn = to.PaidIn + amount;
-            if (paidIn > Account.PayInLimit) throw new InvalidOperationException("Account pay in limit reached");
-            if (Account.PayInLimit - paidIn < 500m) NotificationService.NotifyApproachingPayInLimit(to.User.Email);
-        }
-
-        private void CheckBalance(decimal fromBalance, Account from)
-        {
-            if (fromBalance.IsOverdrawn()) throw new InvalidOperationException("Insufficient funds to make transfer");
-            if (fromBalance.HasLowFunds()) NotificationService.NotifyFundsLow(from.User.Email);
-        }
     }
 }

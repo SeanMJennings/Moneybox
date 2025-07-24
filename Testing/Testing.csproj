@@ -39,6 +39,9 @@
       <Compile Update="Application\TransferMoney.steps.cs">
         <DependentUpon>TransferMoney.specs.cs</DependentUpon>
       </Compile>
+      <Compile Update="Application\WithdrawMoney.steps.cs">
+        <DependentUpon>WithdrawMoney.specs.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

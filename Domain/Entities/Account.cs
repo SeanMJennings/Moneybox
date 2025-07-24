@@ -5,6 +5,7 @@ namespace Moneybox.Domain.Entities
     public class Account(Guid id, User user, Money Withdrawn, Money PaidIn) : Aggregate(id)
     {
         public const decimal PayInLimit = 4000m;
+        public const decimal LowFundsThreshold = 500m;
 
         public User User { get; private set; } = user;
 
