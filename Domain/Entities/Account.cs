@@ -15,12 +15,17 @@ namespace Moneybox.Domain.Entities
         public void Withdraw(Money amount)
         {
             Withdrawn += amount;
-            Balance = PaidIn - Withdrawn;
+            SetBalance();
         }
 
         public void Deposit(Money amount)
         {
             PaidIn += amount;
+            SetBalance();
+        }
+        
+        private void SetBalance()
+        {
             Balance = PaidIn - Withdrawn;
         }
     }
