@@ -6,7 +6,7 @@ using Shouldly;
 
 namespace Testing.Application;
 
-public partial class TransferMoney : Specification
+public partial class TransferMoneySpecs : Specification
 {
     private readonly Guid from_account_id = Guid.NewGuid();
     private readonly Guid to_account_id = Guid.NewGuid();

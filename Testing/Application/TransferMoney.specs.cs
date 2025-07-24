@@ -1,6 +1,6 @@
 ﻿namespace Testing.Application;
 
-public partial class TransferMoney
+public partial class TransferMoneySpecs
 {
     [Test]
     public void alert_insufficient_funds()

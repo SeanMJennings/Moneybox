@@ -1,6 +1,6 @@
 ﻿namespace Testing.Application;
 
-public partial class WithdrawMoney
+public partial class WithdrawMoneySpecs
 {
     [Test]
     public void alert_insufficient_funds()
