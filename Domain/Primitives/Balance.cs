@@ -3,6 +3,7 @@
 public readonly record struct Balance
 {
     public const decimal PayInLimit = 4000m;
+    public const decimal LowFundsThreshold = 500m;
     private decimal Amount { get; }
     
     public static Balance New(decimal amount)
@@ -31,6 +32,9 @@ public readonly record struct Balance
     {
         return Amount.ToString("F");
     }
+    
+    public bool ApproachingPayInLimit() =>  PayInLimit - Amount < LowFundsThreshold;
+    public bool HasLowFunds() => Amount < LowFundsThreshold;
 
     public static implicit operator decimal(Balance balance) => balance.Amount;
     

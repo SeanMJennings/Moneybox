@@ -8,7 +8,7 @@ namespace Moneybox.Application.Features;
 
 public class WithdrawMoney(IAmAnAccountRepository AccountRepository, IAmANotificationService NotificationService)
 {
-    public void Execute(Guid fromAccountId, decimal amount)
+    public void Execute(Guid fromAccountId, Money amount)
     {
         var account = AccountRepository.GetAccountById(fromAccountId);
         account.Withdraw(amount);
@@ -18,6 +18,6 @@ public class WithdrawMoney(IAmAnAccountRepository AccountRepository, IAmANotific
 
     private void NotifyOnNewBalance(Account account)
     {
-        if (account.Balance < Account.LowFundsThreshold) NotificationService.NotifyFundsLow(account.User.Email);
+        if (account.Balance.HasLowFunds()) NotificationService.NotifyFundsLow(account.User.Email);
     }
 }
