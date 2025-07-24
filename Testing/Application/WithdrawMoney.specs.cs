@@ -14,7 +14,7 @@ public partial class WithdrawMoney
     public void notify_low_funds()
     {
         Given(() => a_from_account_with_balance(1000m));
-        When(Validating(() => withdrawing(501m)));
+        When(() => withdrawing(501m));
         Then(low_funds_notification_sent);
     }
 
