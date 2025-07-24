@@ -1,4 +1,6 @@
-﻿namespace Moneybox.Domain.Behaviours;
+﻿using Moneybox.Domain.Entities;
+
+namespace Moneybox.Domain.Behaviours;
 
 public static class Decimal
 {
@@ -9,6 +11,6 @@ public static class Decimal
     
     public static bool HasLowFunds(this decimal amount)
     {
-        return amount < 500m;
+        return amount < Account.LowFundsThreshold;
     }
 }

@@ -6,8 +6,6 @@ public readonly record struct Money
     
     public static Money Zero => new(0);
 
-    public Money(string amount) : this(decimal.Parse(amount)){}
-
     public Money(decimal amount)
     {
         Validation.BasedOn((errors) =>

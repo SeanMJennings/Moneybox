@@ -35,10 +35,7 @@ public partial class WithdrawMoney : Specification
 
     private void low_funds_notification_sent()
     {
-        notificationService.Verify(
-            x => x.NotifyFundsLow(from_account_user.Email),
-            Times.Once
-        );
+        notificationService.Verify(x => x.NotifyFundsLow(from_account_user.Email), Times.Once);
     }
 
     private void withdrawal_is_successful()
