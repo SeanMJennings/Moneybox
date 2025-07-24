@@ -37,8 +37,12 @@ public partial class AccountSpecs : Specification
         account.ShouldNotBeNull();
         account.Id.ShouldBe(id);
         account.User.ShouldBe(user);
-        account.Balance.ShouldBe(-100m);
         account.PaidIn.ShouldBe(PaidIn);
         account.Withdrawn.ShouldBe(Withdrawn);
+    }
+
+    private void the_balance_is_calculated_as_difference_between_paidin_and_withdrawal()
+    {
+        account.Balance.ShouldBe(-100m);
     }
 }
