@@ -30,3 +30,4 @@ Good luck!
 - Have used domain-driven design to create a rich domain model for the Account and User.
 - Have added build pipeline to demonstrate the solution can be built and tested in a CI/CD environment.
 - Lightly renamed the interfaces to aid domain language and clarity.
+- Reordered notifications to send after account balances successfully updated.
