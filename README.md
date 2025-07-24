@@ -27,7 +27,7 @@ Good luck!
 
 ## Approach Taken
 - Have used test-driven development to implement the WithdrawMoney feature.
-- Have used domain-driven design to create a rich domain model for the Account and User.
+- Have used domain-driven design to create a rich domain model for the Account and User and ensure invalid states are not possible.
 - Have added build pipeline to demonstrate the solution can be built and tested in a CI/CD environment.
 - Lightly renamed the interfaces to aid domain language and clarity.
 - Reordered notifications to send after account balances successfully updated.
