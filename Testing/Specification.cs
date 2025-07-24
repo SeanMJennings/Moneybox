@@ -4,7 +4,7 @@ namespace Testing;
 
 public class Specification
 {
-    protected static Exception error = null!;
+    private static Exception error = null!;
 
     [OneTimeSetUp]
     protected virtual void before_all()
