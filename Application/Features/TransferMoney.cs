@@ -1,47 +1,45 @@
 ﻿using System;
 using Moneybox.Application.DataAccess;
+using Moneybox.Domain.Behaviours;
 using Moneybox.Domain.Entities;
 using Moneybox.Domain.Services;
 
 namespace Moneybox.Application.Features
 {
-    public class TransferMoney(IAmAnAccountRepository amAnAccountRepository, IAmANotificationService amANotificationService)
+    public class TransferMoney(IAmAnAccountRepository AccountRepository, IAmANotificationService NotificationService)
     {
         public void Execute(Guid fromAccountId, Guid toAccountId, decimal amount)
         {
-            var from = amAnAccountRepository.GetAccountById(fromAccountId);
-            var to = amAnAccountRepository.GetAccountById(toAccountId);
+            var from = AccountRepository.GetAccountById(fromAccountId);
+            var to = AccountRepository.GetAccountById(toAccountId);
 
             var fromBalance = from.Balance - amount;
-            if (fromBalance < 0m)
-            {
-                throw new InvalidOperationException("Insufficient funds to make transfer");
-            }
+            
+            CheckBalance(fromBalance, from);
+            CheckPayIn(amount, to);
+            Transfer(amount, from, to);
 
-            if (fromBalance < 500m)
-            {
-                amANotificationService.NotifyFundsLow(from.User.Email);
-            }
+            AccountRepository.Update(from);
+            AccountRepository.Update(to);
+        }
 
+        private static void Transfer(decimal amount, Account from, Account to)
+        {
+            from.Withdraw(amount);
+            to.Deposit(amount);
+        }
+
+        private void CheckPayIn(decimal amount, Account to)
+        {
             var paidIn = to.PaidIn + amount;
-            if (paidIn > Account.PayInLimit)
-            {
-                throw new InvalidOperationException("Account pay in limit reached");
-            }
+            if (paidIn > Account.PayInLimit) throw new InvalidOperationException("Account pay in limit reached");
+            if (Account.PayInLimit - paidIn < 500m) NotificationService.NotifyApproachingPayInLimit(to.User.Email);
+        }
 
-            if (Account.PayInLimit - paidIn < 500m)
-            {
-                amANotificationService.NotifyApproachingPayInLimit(to.User.Email);
-            }
-            //
-            // from.Balance = from.Balance - amount;
-            // from.Withdrawn = from.Withdrawn - amount;
-            //
-            // to.Balance = to.Balance + amount;
-            // to.PaidIn = to.PaidIn + amount;
-
-            amAnAccountRepository.Update(from);
-            amAnAccountRepository.Update(to);
+        private void CheckBalance(decimal fromBalance, Account from)
+        {
+            if (fromBalance.IsOverdrawn()) throw new InvalidOperationException("Insufficient funds to make transfer");
+            if (fromBalance.HasLowFunds()) NotificationService.NotifyFundsLow(from.User.Email);
         }
     }
 }

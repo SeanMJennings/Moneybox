@@ -8,10 +8,13 @@ namespace Moneybox.Domain.Entities
 
         public User User { get; private set; } = user;
 
-        public decimal Balance { get; private set; } = PaidIn - Withdrawn;
+        public decimal Balance => PaidIn - Withdrawn;
 
         public Money Withdrawn { get; private set; } = Withdrawn;
 
         public Money PaidIn { get; private set; } = PaidIn;
+        
+        public void Withdraw(Money amount) => Withdrawn += amount;
+        public void Deposit(Money amount) => PaidIn += amount;
     }
 }

@@ -42,4 +42,21 @@ public partial class TransferMoney : Specification
         );
         transferMoney.Execute(from_account_id, to_account_id, amount);
     }
+    
+    private void low_funds_notification_sent()
+    {
+        notificationService.Verify(
+            x => x.NotifyFundsLow(from_account_user.Email),
+            Times.Once
+        );
+    }
+
+    private void transfer_is_successful()
+    {
+        var fromAccount = new InMemoryDataRepository([from_account]).GetAccountById(from_account_id);
+        var toAccount = new InMemoryDataRepository([to_account]).GetAccountById(to_account_id);
+        
+        Assert.That(fromAccount.Balance, Is.EqualTo(500m));
+        Assert.That(toAccount.Balance, Is.EqualTo(500m));
+    }
 }
