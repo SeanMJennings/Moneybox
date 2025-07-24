@@ -10,12 +10,8 @@ public readonly record struct Money
     {
         Validation.BasedOn((errors) =>
         {
-            if (amount < 0)
-            {
-                errors.Add("Amount cannot be negative.");
-            }
+            if (amount < 0) errors.Add("Amount cannot be negative.");
         });
-
         Amount = amount;
     }
 
