@@ -30,6 +30,15 @@ public partial class TransferMoney
     }
     
     [Test]
+    public void notify_approaching_pay_in_limit()
+    {
+        Given(() => a_from_account_with_balance(501m));
+        And(() => a_to_account_with_balance(3001m));
+        When(() => transferring(500m));
+        Then(approaching_pay_in_limit_notification_sent);
+    }
+    
+    [Test]
     public void transfer_money_successfully()
     {
         Given(() => a_from_account_with_balance(1000m));

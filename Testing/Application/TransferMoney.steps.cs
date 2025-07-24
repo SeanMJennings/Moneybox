@@ -52,6 +52,14 @@ public partial class TransferMoney : Specification
             Times.Once
         );
     }
+    
+    private void approaching_pay_in_limit_notification_sent()
+    {
+        notificationService.Verify(
+            x => x.NotifyApproachingPayInLimit(to_account_user.Email),
+            Times.Once
+        );
+    }
 
     private void transfer_is_successful()
     {
