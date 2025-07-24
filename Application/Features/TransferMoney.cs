@@ -1,17 +1,16 @@
-﻿using Moneybox.App.DataAccess;
-using Moneybox.App.Domain.Services;
-using System;
-using Moneybox.App.Domain;
+﻿using System;
+using Moneybox.Application.DataAccess;
 using Moneybox.Domain.Entities;
+using Moneybox.Domain.Services;
 
-namespace Moneybox.App.Features
+namespace Moneybox.Application.Features
 {
-    public class TransferMoney(IAccountRepository accountRepository, INotificationService notificationService)
+    public class TransferMoney(IAmAnAccountRepository amAnAccountRepository, IAmANotificationService amANotificationService)
     {
         public void Execute(Guid fromAccountId, Guid toAccountId, decimal amount)
         {
-            var from = accountRepository.GetAccountById(fromAccountId);
-            var to = accountRepository.GetAccountById(toAccountId);
+            var from = amAnAccountRepository.GetAccountById(fromAccountId);
+            var to = amAnAccountRepository.GetAccountById(toAccountId);
 
             var fromBalance = from.Balance - amount;
             if (fromBalance < 0m)
@@ -21,7 +20,7 @@ namespace Moneybox.App.Features
 
             if (fromBalance < 500m)
             {
-                notificationService.NotifyFundsLow(from.User.Email);
+                amANotificationService.NotifyFundsLow(from.User.Email);
             }
 
             var paidIn = to.PaidIn + amount;
@@ -32,7 +31,7 @@ namespace Moneybox.App.Features
 
             if (Account.PayInLimit - paidIn < 500m)
             {
-                notificationService.NotifyApproachingPayInLimit(to.User.Email);
+                amANotificationService.NotifyApproachingPayInLimit(to.User.Email);
             }
             //
             // from.Balance = from.Balance - amount;
@@ -41,8 +40,8 @@ namespace Moneybox.App.Features
             // to.Balance = to.Balance + amount;
             // to.PaidIn = to.PaidIn + amount;
 
-            accountRepository.Update(from);
-            accountRepository.Update(to);
+            amAnAccountRepository.Update(from);
+            amAnAccountRepository.Update(to);
         }
     }
 }

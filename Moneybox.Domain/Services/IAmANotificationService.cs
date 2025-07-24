@@ -1,6 +1,6 @@
-﻿namespace Moneybox.App.Domain.Services
+﻿namespace Moneybox.Domain.Services
 {
-    public interface INotificationService
+    public interface IAmANotificationService
     {
         void NotifyApproachingPayInLimit(string emailAddress);
 

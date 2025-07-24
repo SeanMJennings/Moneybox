@@ -1,10 +1,9 @@
 ﻿using System;
-using Moneybox.App.Domain;
 using Moneybox.Domain.Entities;
 
-namespace Moneybox.App.DataAccess
+namespace Moneybox.Application.DataAccess
 {
-    public interface IAccountRepository
+    public interface IAmAnAccountRepository
     {
         Account GetAccountById(Guid accountId);
 
