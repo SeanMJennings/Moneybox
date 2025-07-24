@@ -4,8 +4,6 @@ namespace Moneybox.Domain.Entities
 {
     public class Account(Guid id, User user, Money Withdrawn, Money PaidIn) : Aggregate(id)
     {
-
-
         public User User { get; private set; } = user;
 
         public Balance Balance { get; private set; }= PaidIn - Withdrawn;
