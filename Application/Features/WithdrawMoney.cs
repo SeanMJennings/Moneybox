@@ -13,10 +13,10 @@ public class WithdrawMoney(IAmAnAccountRepository AccountRepository, IAmANotific
         var account = AccountRepository.GetAccountById(fromAccountId);
         account.Withdraw(amount);
         AccountRepository.Update(account);
-        NotifyOnNewBalance(account);
+        NotifyWithdrawingAccount(account);
     }
 
-    private void NotifyOnNewBalance(Account account)
+    private void NotifyWithdrawingAccount(Account account)
     {
         if (account.Balance.HasLowFunds()) NotificationService.NotifyFundsLow(account.User.Email);
     }

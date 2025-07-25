@@ -16,18 +16,8 @@ public class TransferMoney(IAmAnAccountRepository AccountRepository, IAmANotific
         Transfer(amount, from, to);
         UpdateAccounts(from, to);
         
-        NotifyOnNewBalance(from.Balance, from.User.Email);
-        NotifyOnPayInLimits(to);
-    }
-
-    private void NotifyOnNewBalance(Balance fromBalance, Email fromEmail)
-    {
-        if (fromBalance.HasLowFunds()) NotificationService.NotifyFundsLow(fromEmail);
-    }
-        
-    private void NotifyOnPayInLimits(Account to)
-    {
-        if (to.Balance.ApproachingPayInLimit()) NotificationService.NotifyApproachingPayInLimit(to.User.Email);
+        NotifyTransferringAccount(from);
+        NotifyReceivingAccount(to);
     }
         
     private static void Transfer(Money amount, Account from, Account to)
@@ -40,5 +30,15 @@ public class TransferMoney(IAmAnAccountRepository AccountRepository, IAmANotific
     {
         AccountRepository.Update(from);
         AccountRepository.Update(to);
+    }
+    
+    private void NotifyTransferringAccount(Account from)
+    {
+        if (from.Balance.HasLowFunds()) NotificationService.NotifyFundsLow(from.User.Email);
+    }
+        
+    private void NotifyReceivingAccount(Account to)
+    {
+        if (to.Balance.ApproachingPayInLimit()) NotificationService.NotifyApproachingPayInLimit(to.User.Email);
     }
 }

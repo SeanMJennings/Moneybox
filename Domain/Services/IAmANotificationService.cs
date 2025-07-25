@@ -1,9 +1,11 @@
-﻿namespace Moneybox.Domain.Services
+﻿using Moneybox.Domain.Primitives;
+
+namespace Moneybox.Domain.Services
 {
     public interface IAmANotificationService
     {
-        void NotifyApproachingPayInLimit(string emailAddress);
+        void NotifyApproachingPayInLimit(Email emailAddress);
 
-        void NotifyFundsLow(string emailAddress);
+        void NotifyFundsLow(Email emailAddress);
     }
 }
