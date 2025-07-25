@@ -30,21 +30,11 @@ public partial class MoneySpecs : Specification
     private void converting_to_money()
     {
         money = new Money(amount);
-    }    
-    
-    private void multiplying_by_two()
-    {
-        money *= 2;
     }
 
     private void money_is_formatted_to_2_dp()
     {
         money.ToString().ShouldBe($"{Math.Round(positive_amount, 2)}");
         ((decimal)money).ShouldBe(positive_amount);
-    }    
-    
-    private void the_amount_is_doubled()
-    {
-        ((decimal)money).ShouldBe(positive_amount * 2);
     }
 }

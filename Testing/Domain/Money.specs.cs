@@ -1,6 +1,5 @@
 ﻿namespace Testing.Domain;
 
-[TestFixture]
 public partial class MoneySpecs
 {
     [Test]
