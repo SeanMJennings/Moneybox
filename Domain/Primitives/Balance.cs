@@ -8,7 +8,7 @@ public readonly record struct Balance
     
     public static Balance New(decimal amount)
     {
-        return new Balance(amount);
+        return new Balance(amount); 
     }
 
     public Balance(decimal amount)
